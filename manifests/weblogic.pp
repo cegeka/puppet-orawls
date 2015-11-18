@@ -113,14 +113,15 @@ class orawls::weblogic (
   }
 
   wls_directory_structure{"weblogic structure ${version}":
-    ensure            => present,
-    oracle_base_dir   => $oracle_base_home_dir,
-    ora_inventory_dir => $ora_inventory_dir,
-    download_dir      => $download_dir,
-    wls_domains_dir   => $domains_dir,
-    wls_apps_dir      => $apps_dir,
-    os_user           => $os_user,
-    os_group          => $os_group,
+    ensure              => present,
+    oracle_base_dir     => $oracle_base_home_dir,
+    ora_inventory_dir   => $ora_inventory_dir,
+    middleware_home_dir => $middleware_home_dir,
+    download_dir        => $download_dir,
+    wls_domains_dir     => $domains_dir,
+    wls_apps_dir        => $apps_dir,
+    os_user             => $os_user,
+    os_group            => $os_group,
   }
 
   # if !defined(File[$download_dir]) {

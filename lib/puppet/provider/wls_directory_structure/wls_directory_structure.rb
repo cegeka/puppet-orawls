@@ -16,7 +16,7 @@ Puppet::Type.type(:wls_directory_structure).provide(:wls_directory_structure) do
 
     Puppet.info "configure oracle folders for #{name}"
 
-    Puppet.info "create the following directories: #{oracle_base}, #{ora_inventory}, #{middleware_home_dir}, #{download_folder}"
+    Puppet.info "create the following directories: #{oracle_base}, #{ora_inventory}, #{middleware_home}, #{download_folder}"
     make_directory oracle_base
     ownened_by_oracle oracle_base, user, group
 
