@@ -27,7 +27,7 @@ describe 'orawls::domain' do
           source              => '/tmp',
           require             => [Package['java-1.7.0-openjdk'],Exec['fetch_wls1036_generic.jar']]
         }
-        class { 'orawls::domain':
+        orawls::domain { 'wls1036':
           version             => 1036,
           filename            => 'wls1036_generic.jar',
           oracle_base_home_dir => '/u01/weblogic',
