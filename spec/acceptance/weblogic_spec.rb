@@ -9,7 +9,7 @@ describe 'orawls::weblogic' do
           command => '/usr/bin/wget -O /tmp/wls1036_generic.jar http://pulp.cegeka.be/rpm/wls1036_generic.jar',
           creates => '/tmp/wls1036_generic.jar'
         }
-        package { ['java-1.7.0-openjdk','wget']:
+        package { ['java-1.7.0-openjdk-devel','wget']:
           ensure => present
         }
         include orawls::urandomfix
