@@ -8,16 +8,20 @@ describe 'orawls::domain' do
         exec { 'fetch_wls1036_generic.jar':
           command => '/usr/bin/wget -O /tmp/wls1036_generic.jar http://pulp.cegeka.be/rpm/wls1036_generic.jar'
         }
+        package { 'java-1.7.0-openjdk':
+          ensure => present
+        }
         include orawls::urandomfix
         class { 'orawls::weblogic': 
-          require => Exec['fetch_wls1036_generic.jar']
+          require => [Package['java-1.7.0-openjdk'],Exec['fetch_wls1036_generic.jar']]
         }
         class { 'orawls::domain':
           version             => 1036,
           filename            => 'wls1036_generic.jar',
+          oracle_base_home_dir => '/u01/weblogic',
           weblogic_home_dir   => '/opt/weblogic/11g/wlserver_10.3',
           middleware_home_dir => '/u01/weblogic/11g',
-          jdk_home_dir        => '/usr/java/jdk1.6.0_45',
+          jdk_home_dir        => '/usr/lib/jvm/jre-1.7.0-openjdk.x86_64/',
           domain_template     => 'standard',
           domain_name         => 'TESTdomain',
           development_mode    => false,
