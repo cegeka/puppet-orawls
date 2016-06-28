@@ -1,6 +1,6 @@
 require 'spec_helper_acceptance'
 
-describe 'orawls::domain' do
+describe 'orawls::weblogic' do
 
   describe 'running puppet code' do
     it 'should work with no errors' do
@@ -28,28 +28,6 @@ describe 'orawls::domain' do
           source              => '/tmp',
           require             => [Package['java-1.7.0-openjdk'],Exec['fetch_wls1036_generic.jar']]
         }
-        orawls::domain { 'wls1036':
-          version             => 1036,
-          weblogic_home_dir   => '/u01/weblogic/11g/wlserver_10.3',
-          middleware_home_dir => '/u01/weblogic/11g',
-          jdk_home_dir        => '/usr/lib/jvm/java',
-          domain_template     => 'standard',
-          domain_name         => 'testdomain',
-          development_mode    => false,
-          adminserver_name    => 'AdminServer',
-          adminserver_address => 'localhost',
-          adminserver_port    => 7011,
-          nodemanager_secure_listener => true,
-          nodemanager_port    => 5556,
-          weblogic_user       => 'weblogic',
-          weblogic_password   => 'somerandompassword0',
-          os_user             => 'root',
-          os_group            => 'root',
-          log_dir             => '/var/log',
-          download_dir        => '/tmp',
-          log_output          => true,
-          require             => Class['orawls::weblogic']
-        }
       EOS
 
       # Run it twice and test for idempotency
@@ -58,9 +36,6 @@ describe 'orawls::domain' do
     end
 
     describe file '/u01/weblogic/11g/wlserver_10.3' do
-      it { is_expected.to be_directory }
-    end
-    describe file '/u01/weblogic/11g/user_projects/domains/testdomain' do
       it { is_expected.to be_directory }
     end
 
