@@ -10,7 +10,7 @@ describe 'orawls::domain' do
         }
         include orawls::urandomfix
         class { 'orawls::weblogic': 
-          require => Exec['fetch_wls1036_generic.jar]
+          require => Exec['fetch_wls1036_generic.jar']
         }
         class { 'orawls::domain':
           version             => 1036,
