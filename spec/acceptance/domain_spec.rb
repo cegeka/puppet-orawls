@@ -13,7 +13,19 @@ describe 'orawls::domain' do
         }
         include orawls::urandomfix
         class { 'orawls::weblogic': 
-          require => [Package['java-1.7.0-openjdk'],Exec['fetch_wls1036_generic.jar']]
+          version             => 1036,
+          filename            => 'wls1036_generic.jar',
+          jdk_home_dir        => '/usr/lib/jvm/jre-1.7.0-openjdk.x86_64',
+          oracle_base_home_dir => '/u01/weblogic',
+          weblogic_home_dir   => '/opt/weblogic/11g/wlserver_10.3',
+          middleware_home_dir => '/u01/weblogic/11g',
+          wls_domains_dir     => '/u01/weblogic/11g/domains',
+          wls_apps_dir        => '/u01/weblogic/11g/applications',
+          os_user             => 'root',
+          os_group            => 'root',
+          download_dir        => '/tmp',
+          source              => '/tmp',
+          require             => [Package['java-1.7.0-openjdk'],Exec['fetch_wls1036_generic.jar']]
         }
         class { 'orawls::domain':
           version             => 1036,
