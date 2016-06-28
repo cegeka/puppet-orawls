@@ -26,7 +26,7 @@ describe 'orawls::weblogic' do
           os_group            => 'root',
           download_dir        => '/tmp',
           source              => '/tmp',
-          require             => [Package['java-1.7.0-openjdk'],Exec['fetch_wls1036_generic.jar']]
+          require             => [Package['java-1.7.0-openjdk-devel'],Exec['fetch_wls1036_generic.jar']]
         }
       EOS
 

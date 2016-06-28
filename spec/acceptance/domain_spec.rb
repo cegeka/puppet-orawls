@@ -26,7 +26,7 @@ describe 'orawls::domain' do
           os_group            => 'root',
           download_dir        => '/tmp',
           source              => '/tmp',
-          require             => [Package['java-1.7.0-openjdk'],Exec['fetch_wls1036_generic.jar']]
+          require             => [Package['java-1.7.0-openjdk-devel'],Exec['fetch_wls1036_generic.jar']]
         }
         orawls::domain { 'wls1036':
           version             => 1036,
