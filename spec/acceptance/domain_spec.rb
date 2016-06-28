@@ -6,18 +6,19 @@ describe 'orawls::domain' do
     it 'should work with no errors' do
       pp = <<-EOS
         exec { 'fetch_wls1036_generic.jar':
-          command => '/usr/bin/wget -O /tmp/wls1036_generic.jar http://pulp.cegeka.be/rpm/wls1036_generic.jar'
+          command => '/usr/bin/wget -O /tmp/wls1036_generic.jar http://pulp.cegeka.be/rpm/wls1036_generic.jar',
+          creates => '/tmp/wls1036_generic.jar'
         }
-        package { 'java-1.7.0-openjdk':
+        package { ['java-1.7.0-openjdk','wget']:
           ensure => present
         }
         include orawls::urandomfix
         class { 'orawls::weblogic': 
           version             => 1036,
           filename            => 'wls1036_generic.jar',
-          jdk_home_dir        => '/usr/lib/jvm/jre-1.7.0-openjdk.x86_64',
+          jdk_home_dir        => '/usr/lib/jvm/jre-1.7.0-openjdk.x86_64/jre',
           oracle_base_home_dir => '/u01/weblogic',
-          weblogic_home_dir   => '/opt/weblogic/11g/wlserver_10.3',
+          weblogic_home_dir   => '/u01/weblogic/11g/wlserver_10.3',
           middleware_home_dir => '/u01/weblogic/11g',
           wls_domains_dir     => '/u01/weblogic/11g/domains',
           wls_apps_dir        => '/u01/weblogic/11g/applications',
@@ -29,9 +30,9 @@ describe 'orawls::domain' do
         }
         orawls::domain { 'wls1036':
           version             => 1036,
-          weblogic_home_dir   => '/opt/weblogic/11g/wlserver_10.3',
+          weblogic_home_dir   => '/u01/weblogic/11g/wlserver_10.3',
           middleware_home_dir => '/u01/weblogic/11g',
-          jdk_home_dir        => '/usr/lib/jvm/jre-1.7.0-openjdk.x86_64',
+          jdk_home_dir        => '/usr/lib/jvm/jre-1.7.0-openjdk.x86_64/jre',
           domain_template     => 'standard',
           domain_name         => 'TESTdomain',
           development_mode    => false,
@@ -56,7 +57,7 @@ describe 'orawls::domain' do
       apply_manifest(pp, :catch_changes => true)
     end
 
-    describe file '/opt/weblogic/11g/wlserver_10.3' do
+    describe file '/u01/weblogic/11g/wlserver_10.3' do
       it { is_expected.to be_directory }
     end
 
