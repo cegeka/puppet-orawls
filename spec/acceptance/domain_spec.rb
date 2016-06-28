@@ -21,7 +21,7 @@ describe 'orawls::domain' do
           oracle_base_home_dir => '/u01/weblogic',
           weblogic_home_dir   => '/opt/weblogic/11g/wlserver_10.3',
           middleware_home_dir => '/u01/weblogic/11g',
-          jdk_home_dir        => '/usr/lib/jvm/jre-1.7.0-openjdk.x86_64/',
+          jdk_home_dir        => '/usr/lib/jvm/jre-1.7.0-openjdk.x86_64',
           domain_template     => 'standard',
           domain_name         => 'TESTdomain',
           development_mode    => false,
