@@ -5,11 +5,17 @@ describe 'orawls::domain' do
   describe 'running puppet code' do
     it 'should work with no errors' do
       pp = <<-EOS
+        exec { 'fetch_wls1036_generic.jar':
+          command => '/usr/bin/wget -O /tmp/wls1036_generic.jar http://pulp.cegeka.be/rpm/wls1036_generic.jar'
+        }
         include orawls::urandomfix
-        class { 'orawls::weblogic': }
+        class { 'orawls::weblogic': 
+          require => Exec['fetch_wls1036_generic.jar]
+        }
         class { 'orawls::domain':
-          version           => 1036,
-          weblogic_home_dir => '/opt/weblogic/11g/wlserver_10.3',
+          version             => 1036,
+          filename            => 'wls1036_generic.jar',
+          weblogic_home_dir   => '/opt/weblogic/11g/wlserver_10.3',
           middleware_home_dir => '/u01/weblogic/11g',
           jdk_home_dir        => '/usr/java/jdk1.6.0_45',
           domain_template     => 'standard',
