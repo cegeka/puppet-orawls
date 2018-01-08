@@ -4417,3 +4417,4 @@ in hiera
         targettype:
          - 'Server'
          - 'Cluster'
+
