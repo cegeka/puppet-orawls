@@ -21,7 +21,7 @@ class orawls::weblogic (
 ) {
 
   # check required parameters
-  if ( $filename == undef or $oracle_base_home_dir == undef or $middleware_home_dir == undef or $jdk_home_dir == undef or $os_user == undef or $os_group == undef or $download_dir == undef ) {
+  if ( $version != 1221 ) and ( $filename == undef or $oracle_base_home_dir == undef or $middleware_home_dir == undef or $jdk_home_dir == undef or $os_user == undef or $os_group == undef or $download_dir == undef ) {
     fail('please provide all the required parameters')
   }
 
@@ -111,17 +111,26 @@ class orawls::weblogic (
     ora_inventory_dir => $oraInventory,
     os_group          => $os_group,
   }
-
-  wls_directory_structure{"weblogic structure ${version}":
-    ensure              => present,
-    oracle_base_dir     => $oracle_base_home_dir,
-    ora_inventory_dir   => $ora_inventory_dir,
-    middleware_home_dir => $middleware_home_dir,
-    download_dir        => $download_dir,
-    wls_domains_dir     => $domains_dir,
-    wls_apps_dir        => $apps_dir,
-    os_user             => $os_user,
-    os_group            => $os_group,
+  if ($version != 1221 ) {
+    wls_directory_structure{"weblogic structure ${version}":
+      ensure              => present,
+      oracle_base_dir     => $oracle_base_home_dir,
+      ora_inventory_dir   => $ora_inventory_dir,
+      middleware_home_dir => $middleware_home_dir,
+      download_dir        => $download_dir,
+      wls_domains_dir     => $domains_dir,
+      wls_apps_dir        => $apps_dir,
+      os_user             => $os_user,
+      os_group            => $os_group,
+    }
+  } else {
+    wls_directory_structure{"weblogic structure ${version}":
+      ensure              => present,
+      oracle_base_dir     => $oracle_base_home_dir,
+      download_dir        => $download_dir,
+      os_user             => $os_user,
+      os_group            => $os_group,
+    }
   }
 
   # if !defined(File[$download_dir]) {
