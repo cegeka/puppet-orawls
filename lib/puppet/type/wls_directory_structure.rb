@@ -18,11 +18,9 @@ module Puppet
 
       def retrieve
         oracle_base         = resource[:oracle_base_dir]
-        ora_inventory       = resource[:ora_inventory_dir]
-        middleware_home_dir = resource[:middleware_home_dir]
         download_folder     = resource[:download_dir]
 
-        if File.exist?(oracle_base) && File.exist?(ora_inventory) && File.exist?(download_folder) && File.exists?(middleware_home_dir)
+        if File.exist?(oracle_base) && File.exist?(download_folder)
           :present
         else
           :absent
@@ -46,22 +44,12 @@ module Puppet
       desc <<-EOT
         The oracle inventory folder.
       EOT
-      validate do |value|
-        if value.nil?
-          fail ArgumentError, 'ora_inventory_dir cannot be empty'
-        end
-      end
     end
 
     newparam(:middleware_home_dir) do
       desc <<-EOT
         The oracle middleware home folder.
       EOT
-      validate do |value|
-        if value.nil?
-          fail ArgumentError, 'middleware_home_dir cannot be empty'
-        end
-      end
     end
 
     newparam(:wls_domains_dir) do
