@@ -6,7 +6,7 @@ describe 'orawls::weblogic' do
     it 'should work with no errors' do
       pp = <<-EOS
         exec { 'fetch_wls1036_generic.jar':
-          command => '/usr/bin/wget -O /tmp/wls1036_generic.jar http://pulp.cegeka.be/rpm/wls1036_generic.jar',
+          command => '/usr/bin/wget -O /tmp/wls1036_generic.jar http://files.jenkins-iac.cegeka.be/rpm/wls1036_generic.jar',
           creates => '/tmp/wls1036_generic.jar'
         }
         package { ['java-1.7.0-openjdk-devel','wget']:
